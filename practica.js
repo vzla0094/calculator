@@ -5,7 +5,7 @@ let screenResPar = document.getElementById('results');
 class MemObj{
 	constructor(){
 		this.multiply = (a, b) =>  a * b;
-		this.divide = (a, b) => a / b;
+		this.divide = (a, b) => b===0 ? "LOOOOOOL" : a / b;
 		this.add = (a, b) => a + b;
 		this.substract = (a, b) => a - b;
 		this.mem = [];

@@ -1,18 +1,24 @@
 
+body {
+	background: black;
+}
+
 #main_container {
-	width: 200px;
-	margin: 0 auto;
+	width: 300px;
+	margin: 60px auto;
 	display: grid;
-	grid: 100px repeat(4, 50px) / repeat(4, .875fr) 1.5fr;
+	grid: 150px repeat(4, 80px) / repeat(4, .875fr) 1.5fr;
 	grid-template-areas: 
 		"screen screen screen screen screen"
 		"seven eigth nine divide equal"
 		"four five six multiply equal"
 		"one two three substract equal"
 		"zero point clear add equal";
-	grid-gap: 4px;
 	background: #1d1c1c;
 	color: whitesmoke;
+	font-family: 'Sarabun', sans-serif;
+	font-size: 1.2em;
+	box-shadow: 0px 0px 20px 1px #174440;
 }
 
 div{
@@ -96,17 +102,30 @@ div{
 }
 
 .buttons {
+	border-radius: 2px;
 	background: #262626;!
 }
 
 .buttons:hover {
 	transition: background 0.5s;
-	background: green;
+	background: #03A9F4;
 }
 
 button {
 	color: whitesmoke;
 	border: none;
+	font-family: 'Sarabun', sans-serif;
+	font-size: 16px;
+	font-weight: 300;
+}
+
+button:focus{
+	outline: none;
+}
+
+#equal:hover{
+	transition: background 0.5s;
+	background: green;
 }
 
 #clear:hover{
@@ -120,8 +139,7 @@ p {
 
 #screen div{
 	padding-right: 10%;
-	text-align: right;
-	font-family: 'Sarabun', sans-serif;
+	text-align: right;	
 }
 
 #op{
