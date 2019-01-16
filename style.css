@@ -3,7 +3,7 @@
 	width: 200px;
 	margin: 0 auto;
 	display: grid;
-	grid: 60px repeat(4, 50px) / repeat(5, 1fr);
+	grid: 100px repeat(4, 50px) / repeat(4, .875fr) 1.5fr;
 	grid-template-areas: 
 		"screen screen screen screen screen"
 		"seven eigth nine divide equal"
@@ -22,49 +22,52 @@ div{
 
 #screen {
 	grid-area: screen;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 #clear {
 	grid-area: clear;
 }
 
-#0 {
+#zero {
 	grid-area: zero;
 }
 
-#1 {
+#one {
 	grid-area: one;
 }
 
-#2 {
+#two {
 	grid-area: two;
 }
 
-#3 {
+#three {
 	grid-area: three;
 }
 
-#4 {
+#four {
 	grid-area: four;
 }
 
-#5 {
+#five {
 	grid-area: five;
 }
 
-#6 {
+#six {
 	grid-area: six;
 }
 
-#7 {
+#seven {
 	grid-area: seven;
 }
 
-#8 {
+#eight {
 	grid-area: eigth;
 }
 
-#9 {
+#nine {
 	grid-area: nine;
 }
 
@@ -104,4 +107,31 @@ div{
 button {
 	color: whitesmoke;
 	border: none;
+}
+
+#clear:hover{
+	transition: background 0.5s;
+	background: #6b2424;
+}
+
+p {
+	margin: 0;
+}
+
+#screen div{
+	padding-right: 10%;
+	text-align: right;
+	font-family: 'Sarabun', sans-serif;
+}
+
+#op{
+	letter-spacing: 4px;
+	padding-top: 10%;	
+}
+
+#res{
+	height: 20%;
+	border-top: solid 1px #4CAF50;
+    background: #253125;
+	padding-bottom: 6%;
 }

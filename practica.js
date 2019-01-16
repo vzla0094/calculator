@@ -1,25 +1,18 @@
 let displayableButtonsArr = Array.from(document.querySelectorAll("button[data-type]"));
 let actionButtonsArr = Array.from(document.querySelectorAll("button[data-action]"));
-let screenPar = document.getElementById('screen').querySelector('p');
-let temp = 0;
+let screenOpPar = document.getElementById('operation');
+let screenResPar = document.getElementById('results');
 class MemObj{
 	constructor(){
-		this.pemdas = {
-			p: [],
-			e: [],
-			md: [],
-			as: [],
-		}
 		this.multiply = (a, b) =>  a * b;
 		this.divide = (a, b) => a / b;
 		this.add = (a, b) => a + b;
 		this.substract = (a, b) => a - b;
-		this.operators = {};
-		this.values = {};
+		this.mem = [];
 	}
 }
 let memObj = new MemObj;
-let keyCount = 1;
+let keyCount = 0;
 for(let element of displayableButtonsArr){
 	element.addEventListener('click', display);	
 }
@@ -31,103 +24,73 @@ function action (event) {
 	switch (event.target.getAttribute('data-action')){
 		case 'clear':
 			memObj = new MemObj;
-			screenPar.textContent = "";
-			keyCount = 1;
-			temp = 0;
+			screenOpPar.textContent = "";
+			screenResPar.textContent = "";
+			keyCount = 0;
 			break;
 		case 'operate':			
-			if (memObj.pemdas.md){
-				let a;
-				let b;
-				for (let op of memObj.pemdas.md){
-					if (memObj.values[op.operatorNumber]){
-						a = memObj.values[op.operatorNumber];
-					}else {
-						a = temp;
-					}
-					if (memObj.values[op.operatorNumber+1]){
-						b = memObj.values[op.operatorNumber+1];
-					}else {
-						b = temp;					
-					}
-					temp = memObj[op.operation](a, b);
-					memObj.values[op.operatorNumber] = null;
-					memObj.values[op.operatorNumber+1] = null;
-				}
-			}
-			if(memObj.pemdas.as){
-				let a;
-				let b;
-				for (let op of memObj.pemdas.as){
-					if (memObj.values[op.operatorNumber]){
-						a = memObj.values[op.operatorNumber];
-					}else {
-						a = temp;
-					}
-					if (memObj.values[op.operatorNumber+1]){
-						b = memObj.values[op.operatorNumber+1];
-					}else {
-						b = temp;					
-					}
-					temp = memObj[op.operation](a, b);
-					memObj.values[op.operatorNumber] = null;
-					memObj.values[op.operatorNumber+1] = null;
-				}
-			}
+			operate(memObj.mem);
+			screenResPar.textContent = memObj.mem[0];
+			break;
 	}
 }
 
 function display (event) {	
 	switch (event.target.getAttribute('data-type')){		
 		case 'value':
-			storer('valueProp', parseInt(event.target.textContent));
-			screenPar.textContent += event.target.textContent;
+			storer('valueProp', event.target.textContent);
 			break;
 		case 'operator':			
 			storer('operatorProp', event.target.textContent);
-			keyCount += 1;
-			screenPar.textContent += event.target.textContent;
+			keyCount += 2;			
 			break;		
 	}
+	screenOpPar.textContent += event.target.textContent;
 	function storer(prop, value){
 		switch (prop){
 			case 'valueProp':
-				if (memObj.values[keyCount] === undefined){
-					memObj.values[keyCount] = value;
+				if (memObj.mem[keyCount] === undefined){
+					memObj.mem.push(value);
 				}else{
-					memObj.values[keyCount] += value;
-				};
+					memObj.mem[keyCount] += value;
+				};				
 				break;
 			case 'operatorProp':
-				memObj.operators[keyCount] = value;
-				pemdas(value);
+				memObj.mem.push(value);
 				break;
-		}
-		function pemdas (operator){
-			switch (operator){
-				case '*': memObj.pemdas.md.push({
-					operatorNumber:keyCount,
-					operation:'multiply'
-				});				
-				break;
-				case '÷': memObj.pemdas.md.push({
-					operatorNumber:keyCount,
-					operation: 'divide'
-				});
-				break;
-				case '+': memObj.pemdas.as.push({
-					operatorNumber:keyCount,
-					operation: 'add'
-				});
-				break;
-				case '-': memObj.pemdas.as.push({
-					operatorNumber:keyCount,
-					operation: 'substract'
-				});
-				break;
-			}		
 		}
 	}
 };
 
-
+function operate (arr){
+	for(let i = 0; i < arr.length; i++){
+		let a;
+		let b;
+		if(arr[i] === '*'){
+			a = parseInt(arr[i-1]);
+			b = parseInt(arr[i+1]);
+			memObj.mem.splice(i-1, 3, memObj.multiply(a, b));
+			i--;
+		}else if(arr[i] === '÷'){
+			a = parseInt(arr[i-1]);
+			b = parseInt(arr[i+1]);
+			memObj.mem.splice(i-1, 3, memObj.divide(a, b));
+			i--;
+		}
+	}
+	for (let i = 0; i < arr.length; i++){
+		let a;
+		let b;
+		if(arr[i] === '+'){
+			a = parseInt(arr[i-1]);
+			b = parseInt(arr[i+1]);
+			memObj.mem.splice(i-1, 3, memObj.add(a, b));
+			i--;
+		}else if(arr[i] === '-'){
+			a = parseInt(arr[i-1]);
+			b = parseInt(arr[i+1]);
+			memObj.mem.splice(i-1, 3, memObj.substract(a, b));
+			i--;
+		}
+	}
+}
