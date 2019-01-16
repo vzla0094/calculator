@@ -1,0 +1,107 @@
+
+#main_container {
+	width: 200px;
+	margin: 0 auto;
+	display: grid;
+	grid: 60px repeat(4, 50px) / repeat(5, 1fr);
+	grid-template-areas: 
+		"screen screen screen screen screen"
+		"seven eigth nine divide equal"
+		"four five six multiply equal"
+		"one two three substract equal"
+		"zero point clear add equal";
+	grid-gap: 4px;
+	background: #1d1c1c;
+	color: whitesmoke;
+}
+
+div{
+	vertical-align: middle;
+	text-align: center;
+}
+
+#screen {
+	grid-area: screen;
+}
+
+#clear {
+	grid-area: clear;
+}
+
+#0 {
+	grid-area: zero;
+}
+
+#1 {
+	grid-area: one;
+}
+
+#2 {
+	grid-area: two;
+}
+
+#3 {
+	grid-area: three;
+}
+
+#4 {
+	grid-area: four;
+}
+
+#5 {
+	grid-area: five;
+}
+
+#6 {
+	grid-area: six;
+}
+
+#7 {
+	grid-area: seven;
+}
+
+#8 {
+	grid-area: eigth;
+}
+
+#9 {
+	grid-area: nine;
+}
+
+#add {
+	grid-area: add;
+}
+
+#substract {
+	grid-area: substract;
+}
+
+#multiply {
+	grid-area: multiply;
+}
+
+#divide {
+	grid-area: divide;
+}
+
+#equal {
+	grid-area: equal;
+}
+
+#point {
+	grid-area: point;
+}
+
+.buttons {
+	background: #262626;!
+}
+
+.buttons:hover {
+	transition: background 0.5s;
+	background: green;
+}
+
+button {
+	color: whitesmoke;
+	border: none;
+}
