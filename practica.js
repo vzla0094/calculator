@@ -26,13 +26,13 @@ function action (event) {
 			memObj = new MemObj;
 			screenOpPar.textContent = "";
 			screenResPar.textContent = "";
-			keyCount = 0;
 			break;
 		case 'operate':			
 			operate(memObj.mem);
 			screenResPar.textContent = memObj.mem[0];
 			break;
 	}
+	keyCount = 0;
 }
 
 function display (event) {	
