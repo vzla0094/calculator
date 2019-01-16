@@ -67,13 +67,13 @@ function operate (arr){
 		let a;
 		let b;
 		if(arr[i] === '*'){
-			a = parseInt(arr[i-1]);
-			b = parseInt(arr[i+1]);
+			a = parseFloat(arr[i-1]);
+			b = parseFloat(arr[i+1]);
 			memObj.mem.splice(i-1, 3, memObj.multiply(a, b));
 			i--;
 		}else if(arr[i] === '÷'){
-			a = parseInt(arr[i-1]);
-			b = parseInt(arr[i+1]);
+			a = parseFloat(arr[i-1]);
+			b = parseFloat(arr[i+1]);
 			memObj.mem.splice(i-1, 3, memObj.divide(a, b));
 			i--;
 		}
@@ -82,13 +82,13 @@ function operate (arr){
 		let a;
 		let b;
 		if(arr[i] === '+'){
-			a = parseInt(arr[i-1]);
-			b = parseInt(arr[i+1]);
+			a = parseFloat(arr[i-1]);
+			b = parseFloat(arr[i+1]);
 			memObj.mem.splice(i-1, 3, memObj.add(a, b));
 			i--;
 		}else if(arr[i] === '-'){
-			a = parseInt(arr[i-1]);
-			b = parseInt(arr[i+1]);
+			a = parseFloat(arr[i-1]);
+			b = parseFloat(arr[i+1]);
 			memObj.mem.splice(i-1, 3, memObj.substract(a, b));
 			i--;
 		}
