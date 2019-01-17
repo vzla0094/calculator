@@ -2,6 +2,25 @@ let displayableButtonsArr = Array.from(document.querySelectorAll("button[data-ty
 let actionButtonsArr = Array.from(document.querySelectorAll("button[data-action]"));
 let screenOpPar = document.getElementById('operation');
 let screenResPar = document.getElementById('results');
+document.addEventListener('keydown', event => { //add keyboard functionality
+	let button = document.querySelector(`button[data-key="${event.key}"]`);
+	if (button){
+		if(button.getAttribute('data-key') === '='){
+			button.addEventListener('transitionend', e => e.target.classList.remove('pressEqual'));
+			button.classList.add('pressEqual');
+		}else if(button.getAttribute('data-key') === 'Delete'){
+			button.addEventListener('transitionend', e => e.target.classList.remove('pressClear'));
+			button.classList.add('pressClear');
+		}else {
+			button.addEventListener('transitionend', e => e.target.classList.remove('pressButton'));
+			button.classList.add('pressButton');
+		}
+		
+		if (button.hasAttribute('data-action')){
+			action(button);
+		}else display(button);
+	} 
+});
 class MemObj{
 	constructor(){
 		this.multiply = (a, b) =>  a * b;
@@ -20,8 +39,12 @@ for(let element of actionButtonsArr){
 	element.addEventListener('click', action);
 }
 
-function action (event) {
-	switch (event.target.getAttribute('data-action')){
+function action (caller) {
+	let button;
+	if (caller.target === undefined){
+		button = caller;
+	}else button = caller.target;
+	switch (button.getAttribute('data-action')){
 		case 'clear':
 			memObj = new MemObj;
 			screenOpPar.textContent = "";
@@ -35,17 +58,21 @@ function action (event) {
 	keyCount = 0;
 }
 
-function display (event) {	
-	switch (event.target.getAttribute('data-type')){		
+function display (caller) {
+	let button;
+	if (caller.target === undefined){
+		button = caller;
+	}else button = caller.target;
+	switch (button.getAttribute('data-type')){		
 		case 'value':
-			storer('valueProp', event.target.textContent);
+			storer('valueProp', button.textContent);
 			break;
 		case 'operator':			
-			storer('operatorProp', event.target.textContent);
+			storer('operatorProp', button.textContent);
 			keyCount += 2;			
 			break;		
 	}
-	screenOpPar.textContent += event.target.textContent;
+	screenOpPar.textContent += button.textContent;
 	function storer(prop, value){
 		switch (prop){
 			case 'valueProp':
